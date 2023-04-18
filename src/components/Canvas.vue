@@ -51,6 +51,7 @@ interface DrawItem {
 
 const generateImage = (canvas: HTMLCanvasElement, list: string[], imageList: ImageList) => {
   const copyList = [...list]
+  console.log('copyList', copyList)
   const drawList: DrawItem[] = []
   // Delete '-' at the end
   if (copyList[copyList.length - 1] === '-') {
@@ -61,10 +62,13 @@ const generateImage = (canvas: HTMLCanvasElement, list: string[], imageList: Ima
   }
   // calculate canvas height
   let height = 0
-  copyList.forEach(item => {
+  copyList.forEach((item, index) => {
     if (item === '-') {
       height += 72
     } else {
+      if (item === 'o' && copyList[index - 1] === '-') {
+        item = 'of'
+      }
       const drawItem = {
         // @ts-ignore
         image: imageList[item],
